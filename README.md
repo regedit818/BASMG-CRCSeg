@@ -1,1 +1,1 @@
-The code will be released upon acceptance of submitted paper.
+**Boundary-Aware Spectral and Morphological Guidance Method for Feature-Driven Colorectal Cancer Segmentation**
