@@ -1,4 +1,4 @@
-**Boundary-Aware Spectral and Morphological Guidance Method for Feature-Driven Colorectal Cancer Segmentation**
+## **Boundary-Aware Spectral and Morphological Guidance Method for Feature-Driven Colorectal Cancer Segmentation**
 
 ------
 
@@ -6,7 +6,7 @@
 
 ------
 
-![1](D:\医学影像分割\recoding\2026-06-17——TMI的github信息\img\1.jpg)
+![1](./img/1.jpg)
 
 ## Architecture overview of 
 
