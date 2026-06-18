@@ -55,31 +55,30 @@ If you intend to use your own dataset, please overload nnUNetTrainer_FFTMixShift
             """used for debugging plans etc"""
             super().__init__(plans, configuration, fold, dataset_json, unpack_dataset, device)
     
-    @staticmethod
-    def build_network_architecture(architecture_class_name: str,
-                                   arch_init_kwargs: dict,
-                                   arch_init_kwargs_req_import: Union[List[str], Tuple[str, ...]],
-                                   num_input_channels: int,
-                                   num_output_channels: int,
-                                   enable_deep_supervision: bool = True) -> nn.Module:
-        len_num = 15
-        model = M_UNet(num_input_channels,
-                       num_output_channels,
-                       arch_init_kwargs['features_per_stage'][:len_num],
-                       arch_init_kwargs['kernel_sizes'][:len_num],
-                       arch_init_kwargs['strides'][:len_num],
-                       use_k=0.8,
-                       direction=False,
-                       spacing=(4.399994373321533, 1.09375, 1.09375),
-                       deep_supervision=enable_deep_supervision
-                       )
-        return model
+        @staticmethod
+        def build_network_architecture(architecture_class_name: str,
+                                       arch_init_kwargs: dict,
+                                       arch_init_kwargs_req_import: Union[List[str], Tuple[str, ...]],
+                                       num_input_channels: int,
+                                       num_output_channels: int,
+                                       enable_deep_supervision: bool = True) -> nn.Module:
+            len_num = 15
+            model = M_UNet(num_input_channels,
+                           num_output_channels,
+                           arch_init_kwargs['features_per_stage'][:len_num],
+                           arch_init_kwargs['kernel_sizes'][:len_num],
+                           arch_init_kwargs['strides'][:len_num],
+                           use_k=0.8,
+                           direction=False,
+                           spacing=(4.399994373321533, 1.09375, 1.09375),
+                           deep_supervision=enable_deep_supervision
+                           )
+            return model
 
-use_k: threshold for the level set  
-
-direction: direction of the level set, True for forward  
-
-spacing: spacing obtained from nnUNet processing
+| use_k         | threshold for the level set                      |
+| ------------- | ------------------------------------------------ |
+| **direction** | **direction of the level set, True for forward** |
+| **spacing**   | **spacing obtained from nnUNet processing**      |
 
 
 
