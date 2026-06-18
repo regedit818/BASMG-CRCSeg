@@ -32,7 +32,7 @@ The overall framework of our model. The 3D data are first fed into the encoder, 
 nnUNetv2_plan_and_preprocess -d 300 --verify_dataset_integrity
 ```
 
-We conducted extensive experiments on benchmarks: CRC dataset, ATLAS, ISPY1 and PanSegData. You can download the dataset for [ATLAS](https://atlas-challenge.u-bourgogne.fr/dataset), [ISPY1](https://www.cancerimagingarchive.net/analysis-result/ispy1-tumor-seg-radiomics/) and [PanSegData](https://osf.io/kysnj/).
+We conducted extensive experiments on benchmarks: CRC dataset, [ATLAS](https://atlas-challenge.u-bourgogne.fr/dataset), [ISPY1](https://www.cancerimagingarchive.net/analysis-result/ispy1-tumor-seg-radiomics/) and [PanSegData](https://osf.io/kysnj/).
 
 
 
