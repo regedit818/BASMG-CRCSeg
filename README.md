@@ -10,24 +10,23 @@ This is the official code of  Boundary-Aware Spectral and Morphological Guidance
 
 ![1](./img/1.jpg)
 
-## Architecture overview of 
+## Architecture overview of BASMG
 
 The overall framework of our model. The 3D data are first fed into the encoder, which consists of L encoder blocks, where each block takes the output of the previous one as its input. The extracted features are then downsampled and passed into the decoder, which consists of L-1 decoder blocks. Each decoder block takes as input three components: the output of the previous decoder block, the output of the corresponding encoder block, and the level set energy function downsampled to the same scale. During decoding, the outputs of the shallowest decoder block 1 and the deepest decoder block L-1 are jointly fed into the HED module to obtain the modulated shallow features and the edge prediction for the auxiliary task. Additionally, UP CONV denotes an upsampling convolution used to reduce the feature size, while DOWN CONV consists of a transposed convolution to restore the feature size followed by a standard convolution. (a) Frequency domain reconstruction module. (b) LSF-guided grouped skip module. (c) Frequency domain Reconstruction Module.
 
-
-
 ------
-
-
 
 ## How to Use
 
 - Download and configure [**nnUNet**](https://github.com/MIC-DKFZ/nnUNet)
 
 - Move **BASMG** and **nnUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit.py** to **.../nnUNet/nnunetv2/training/nnUNetTrainer/** of the configured nnUNet
+
 - Use **BASMG** just like nnUNet:
 
-> Data Preprocessing
+  
+
+> ### Data Preprocessing
 
 ```
 nnUNetv2_plan_and_preprocess -d 300 --verify_dataset_integrity
@@ -35,7 +34,9 @@ nnUNetv2_plan_and_preprocess -d 300 --verify_dataset_integrity
 
 We conducted extensive experiments on benchmarks: CRC dataset, ATLAS, ISPY1 and PanSegData. You can download the dataset for [ATLAS](https://atlas-challenge.u-bourgogne.fr/dataset), [ISPY1](https://www.cancerimagingarchive.net/analysis-result/ispy1-tumor-seg-radiomics/) and [PanSegData](https://osf.io/kysnj/).
 
-> Training
+
+
+> ### Training
 
 ```
 nnUNetv2_train 100 3d_fullres 0 -tr nUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit_CRC
@@ -75,11 +76,20 @@ If you intend to use your own dataset, please overload nnUNetTrainer_FFTMixShift
                            )
             return model
 
-| use_k         | threshold for the level set                      |
-| ------------- | ------------------------------------------------ |
-| **direction** | **direction of the level set, True for forward** |
-| **spacing**   | **spacing obtained from nnUNet processing**      |
+**use_k**: threshold for the level set  
+**direction**: direction of the level set, True for forward  
+**spacing**: spacing obtained from nnUNet processing
 
 
 
-# The GitHub repository is under construction......
+> ### Testing
+
+```
+nnUNetv2_predict -i .../nnUNetFrame/nnUNet_raw/Dataset100_your_dataset/imagesTs/ -o .../your_predict_path/ -d 100 -c 3d_fullres -tr nnUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit_YourData
+```
+
+​                           
+
+## Acknowledgement
+
+This repository is built based on [nnUNet](https://github.com/MIC-DKFZ/nnUNet) repository.
