@@ -76,9 +76,9 @@ If you intend to use your own dataset, please overload nnUNetTrainer_FFTMixShift
                            )
             return model
 
-**use_k**: threshold for the level set  
-**direction**: direction of the level set, True for forward  
-**spacing**: spacing obtained from nnUNet processing
+**use_k**: threshold for the level set.  
+**direction**: direction of the level set, True for forward.  
+**spacing**: spacing obtained from nnUNet processing.
 
 
 
