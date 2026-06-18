@@ -27,7 +27,53 @@ The overall framework of our model. The 3D data are first fed into the encoder, 
 - Move **BASMG** and **nnUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit.py** to **.../nnUNet/nnunetv2/training/nnUNetTrainer/** of the configured nnUNet
 - Use **BASMG** just like nnUNet:
 
+> Data Preprocessing
 
+```
+nnUNetv2_plan_and_preprocess -d 300 --verify_dataset_integrity
+```
+
+We conducted extensive experiments on benchmarks: CRC dataset, ATLAS, ISPY1 and PanSegData. You can download the dataset for [ATLAS](https://atlas-challenge.u-bourgogne.fr/dataset), [ISPY1](https://www.cancerimagingarchive.net/analysis-result/ispy1-tumor-seg-radiomics/) and [PanSegData](https://osf.io/kysnj/).
+
+> Training
+
+```
+nnUNetv2_train 100 3d_fullres 0 -tr nUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit_CRC
+
+nnUNetv2_train 200 3d_fullres 0 -tr nnUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit_ATLAS
+
+nnUNetv2_train 300 3d_fullres 0 -tr nnUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit_ISPY1
+
+nnUNetv2_train 400 3d_fullres 0 -tr nnUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit_PanSegData
+```
+
+If you intend to use your own dataset, please overload nnUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit and configure the **three parameters (use_k, direction, spacing)** of the network architecture. Such as:
+
+    class nnUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit_YourData(nnUNetTrainer_FFTMixShift_UDEHead_LSFMFMGsplit):
+        def __init__(self, plans: dict, configuration: str, fold: int, dataset_json: dict, unpack_dataset: bool = True,
+                     device: torch.device = torch.device('cuda')):
+            """used for debugging plans etc"""
+            super().__init__(plans, configuration, fold, dataset_json, unpack_dataset, device)
+    
+    @staticmethod
+    def build_network_architecture(architecture_class_name: str,
+                                   arch_init_kwargs: dict,
+                                   arch_init_kwargs_req_import: Union[List[str], Tuple[str, ...]],
+                                   num_input_channels: int,
+                                   num_output_channels: int,
+                                   enable_deep_supervision: bool = True) -> nn.Module:
+        len_num = 15
+        model = M_UNet(num_input_channels,
+                       num_output_channels,
+                       arch_init_kwargs['features_per_stage'][:len_num],
+                       arch_init_kwargs['kernel_sizes'][:len_num],
+                       arch_init_kwargs['strides'][:len_num],
+                       use_k=0.8,
+                       direction=False,
+                       spacing=(4.399994373321533, 1.09375, 1.09375),
+                       deep_supervision=enable_deep_supervision
+                       )
+        return model
 
 
 
