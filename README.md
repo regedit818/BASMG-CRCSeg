@@ -1,6 +1,6 @@
 ## **Boundary-Aware Spectral and Morphological Guidance Method for Feature-Driven Colorectal Cancer Segmentation**
 
-This is the official code of  Boundary-Aware Spectral and Morphological Guidance Method for Feature-Driven Colorectal Cancer Segmentation ([TMI 2026](https://ieeexplore.ieee.org/abstract/document/11573336)).
+This is the official code of  Boundary-Aware Spectral and Morphological Guidance Method for Feature-Driven Colorectal Cancer Segmentation (TMI 2026).
 
 ------
 
